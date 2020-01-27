@@ -7,7 +7,7 @@ const config = {
   // Bundle for nodeJS, rather than for the browser
   target: "node",
   // Root file of our server app
-  entry: "./src/index.js",
+  entry: "./src/server.js",
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "build")
