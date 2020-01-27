@@ -90,8 +90,8 @@ var app = (0, _express2.default)();
 
 app.use(_express2.default.static("public"));
 
-app.get("/", function (req, res) {
-  res.send((0, _renderer2.default)());
+app.get("*", function (req, res) {
+  res.send((0, _renderer2.default)(req));
 });
 
 app.listen(3000, function () {
@@ -121,14 +121,21 @@ var _react2 = _interopRequireDefault(_react);
 
 var _server = __webpack_require__(4);
 
-var _App = __webpack_require__(5);
+var _reactRouterDom = __webpack_require__(6);
 
-var _App2 = _interopRequireDefault(_App);
+var _Routes = __webpack_require__(7);
+
+var _Routes2 = _interopRequireDefault(_Routes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function () {
-  var content = (0, _server.renderToString)(_react2.default.createElement(_App2.default, null));
+// req is from server.js
+exports.default = function (req) {
+  var content = (0, _server.renderToString)(_react2.default.createElement(
+    _reactRouterDom.StaticRouter,
+    { localtion: req.path, context: {} },
+    _react2.default.createElement(_Routes2.default, null)
+  ));
 
   return "\n    <html>\n      <head>\n          <body>\n              <div id='root'>" + content + "</div>\n              <script src=\"bundle.js\"></script>\n          </body>\n      </head>\n    </html>\n    ";
 };
@@ -176,6 +183,43 @@ var App = function App() {
 };
 
 exports.default = App;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-dom");
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(6);
+
+var _App = __webpack_require__(5);
+
+var _App2 = _interopRequireDefault(_App);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  return _react2.default.createElement(
+    "div",
+    null,
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _App2.default })
+  );
+};
 
 /***/ })
 /******/ ]);
